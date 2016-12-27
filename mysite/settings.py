@@ -73,20 +73,43 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '/cloudsql/solar-cloud-143410:asia-east1:pvc-db1',
-        'NAME': 'raspi',
-        'USER': 'raspi',
-        'PASSWORD': '',
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.sqlite3',
+    #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     }
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/solar-cloud-143410:asia-east1:pvc-db1',
+            'NAME': 'raspi',
+            'USER': 'raspi',
+            'PASSWORD': '',
+        }
     }
-}
+else:
+    import socket
+    try:
+        HOSTNAME = socket.gethostname()
+    except:
+        HOSTNAME = 'localhost'
+    
+    if HOSTNAME == 'pvcloud-compute-1':
+        DB_HOST = '104.199.200.37'
+    else:
+        DB_HOST = 'localhost'
 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'raspi',
+            'USER': 'raspi',
+            'PASSWORD': '',
+            'HOST': DB_HOST,
+            'PORT': '3306',
+        }
+    }
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
