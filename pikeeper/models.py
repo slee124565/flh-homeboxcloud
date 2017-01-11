@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from datetime import datetime
-
 # Create your models here.
 class Report(models.Model):
     version = models.CharField('report version', max_length=10,default='v1.0')
@@ -10,7 +8,7 @@ class Report(models.Model):
     revision = models.CharField('pi revision', max_length=20,default='')
     serial = models.CharField('pi serial', max_length=20,default='')
     public_ip = models.CharField('public ip', max_length=20,default='')
-    last_update_time = models.DateTimeField('last update time',default=datetime.now)
+    last_update_time = models.DateTimeField('last update time',default=timezone.now)
     services = models.CharField('service list', max_length=100,default='')
     local_ip_list = models.CharField('local ip list', max_length=100,default='')
     public_key = models.CharField('public key', max_length=500,default='')

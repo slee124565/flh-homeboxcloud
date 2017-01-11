@@ -8,4 +8,4 @@ else
 	version=$1
 fi
 
-gcloud app deploy --project home-box -v ${version}
+gcloud app deploy app.yaml --project home-box -v $version 
