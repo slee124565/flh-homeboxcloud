@@ -23,6 +23,10 @@ class PiKeeperClientTestCase(TestCase):
         en_data_2 = piclient.get_encrypted_status_report()
         self.assertNotEqual(en_data_1, en_data_2,
                             'It should product different encrypted data.')
+    
+    def test_post_status_report_to_server(self):
+        '''post_status_report_to_server should receive server response'''
+        piclient.post_status_report_to_server()
 
 class PiKeeperTestCase(TestCase):
     def setUp(self):

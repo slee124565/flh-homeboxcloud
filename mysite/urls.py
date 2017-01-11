@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
 from .views import DefaultView
 from pikeeper.server import ApiReport_v1
@@ -24,5 +25,5 @@ urlpatterns = [
 
     url(r'^$', DefaultView.as_view(), name='DefaultView'),
     
-    url(r'^api/v1/report/$', ApiReport_v1.as_view(), name='PiKeeperReport'),
+    url(r'^api/v1/report/$', csrf_exempt(ApiReport_v1.as_view()), name='PiKeeperReport'),
 ]
