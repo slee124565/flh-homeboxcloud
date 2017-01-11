@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from datetime import datetime
 
@@ -21,6 +22,7 @@ class Report(models.Model):
                     self.serial,
                     self.public_ip,
                     str(self.local_ip_list),
-                    str(self.last_update_time),
+                    str(timezone.localtime(self.last_update_time,
+                                           timezone.get_default_timezone())),
                     str(self.services),
                     self.public_key[:15]+'...'+self.public_key[-30:]))

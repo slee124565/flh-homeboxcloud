@@ -2,13 +2,13 @@ from django.views.generic import View
 from django.conf import settings
 from django.core import signing
 from django.http import HttpResponse, Http404
+from django.utils import timezone
 
 import logging
 logger = logging.getLogger(__name__)
 
 from ipware.ip import get_real_ip
 import json
-from datetime import datetime
 
 from .models import Report
 
@@ -35,7 +35,7 @@ class ApiReport_v1(View):
                 db_entry.services = str(report.get('services',[]))
                 db_entry.local_ip_list = str(report.get('local_ip',[]))
                 db_entry.public_key = str(report.get('public_key',''))
-                db_entry.last_update_time = datetime.now()
+                db_entry.last_update_time = timezone.now()
                 db_entry.save()
                 logger.info('ApiReport_v1: %s' % str(db_entry) )
             else:
