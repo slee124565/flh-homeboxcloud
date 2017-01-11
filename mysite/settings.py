@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pikeeper.apps.PikeeperConfig',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,8 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
             'HOST': '/cloudsql/solar-cloud-143410:asia-east1:pvc-db1',
             'NAME': 'raspi',
             'USER': 'raspi',
-            'PASSWORD': '',
+            'PASSWORD': 'XSW23edc',
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" },
         }
     }
 else:
@@ -104,9 +106,10 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'raspi',
             'USER': 'raspi',
-            'PASSWORD': '',
+            'PASSWORD': 'XSW23edc',
             'HOST': DB_HOST,
             'PORT': '3306',
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" },
         }
     }
     
@@ -135,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 
@@ -149,6 +152,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+
+PIKEEPER = {
+    'client_secret_key': 'et)=vlf(#t)2zdznfa&&$^&n1dytee6-=_sqc9s&@*o+-lcjr+',
+}
 
 LOGGING = {
     'version': 1,              
