@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+
 from .views import DefaultView
+from pikeeper.server import ApiReport_v1
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^$', DefaultView.as_view(), name='DefaultView'),
+    
+    url(r'^api/v1/report/$', ApiReport_v1.as_view(), name='PiKeeperReport'),
 ]
